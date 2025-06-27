@@ -8,12 +8,12 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-public class UserInfoDTO {
+public class UserInfoResponse {
     private UUID id;
     private String userName;
     private Integer age;
 
-    public UserInfoDTO(UserInfoEntity userInfoEntity){
+    public UserInfoResponse(UserInfoEntity userInfoEntity){
         this.id = userInfoEntity.getId();
         this.userName = userInfoEntity.getUserName();
         this.age = userInfoEntity.getAge();

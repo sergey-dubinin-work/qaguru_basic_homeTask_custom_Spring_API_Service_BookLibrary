@@ -1,7 +1,7 @@
 package guru.qa.booklibrary.controller;
 
-import guru.qa.booklibrary.dto.users.UserInfoDTO;
-import guru.qa.booklibrary.dto.users.UserRegistrationDTO;
+import guru.qa.booklibrary.dto.users.UserInfoResponse;
+import guru.qa.booklibrary.dto.users.UserRegistrationRequest;
 import guru.qa.booklibrary.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,8 +19,8 @@ public class UserController {
 
     @PostMapping("/register")
     @Operation(summary = "Регистрация нового пользователя")
-    public UserInfoDTO registerUser(@RequestBody UserRegistrationDTO userRegistrationDTOData){
-        return userRepository.addUser(userRegistrationDTOData);
+    public UserInfoResponse registerUser(@RequestBody UserRegistrationRequest userRegistrationRequest){
+        return new UserInfoResponse(userRepository.addUser(userRegistrationRequest));
     }
 
 }
