@@ -1,13 +1,13 @@
-package guru.qa.booklibrary.domain.users;
+package guru.qa.booklibrary.entity.users;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.UUID;
 
-@Data
+@Getter
 @AllArgsConstructor
-public class UserInfo {
+public class UserInfoEntity {
     private UUID id;
     private String userName;
     private String password;

@@ -1,9 +1,9 @@
-package guru.qa.booklibrary.domain.users;
+package guru.qa.booklibrary.dto.users;
 
 import lombok.Getter;
 
 @Getter
-public class UserRegistration {
+public class UserRegistrationDTO {
     private String userName;
     private String password;
     private Integer age;

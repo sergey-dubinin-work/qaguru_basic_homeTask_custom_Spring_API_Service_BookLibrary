@@ -1,7 +1,8 @@
 package guru.qa.booklibrary.repository;
 
-import guru.qa.booklibrary.domain.users.UserInfo;
-import guru.qa.booklibrary.domain.users.UserRegistration;
+import guru.qa.booklibrary.dto.users.UserInfoDTO;
+import guru.qa.booklibrary.dto.users.UserRegistrationDTO;
+import guru.qa.booklibrary.entity.users.UserInfoEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,18 +10,19 @@ import java.util.UUID;
 
 public class UserRepository {
 
-    private static final List<UserInfo> USERS = new ArrayList<>();
+    private static final List<UserInfoEntity> USERS = new ArrayList<>();
 
-    public UserInfo addUser(UserRegistration userRegistrationBody){
-        UserInfo userInfo = new UserInfo(
+    public UserInfoDTO addUser(UserRegistrationDTO userRegistrationDTOBody){
+
+        UserInfoEntity userInfoEntity = new UserInfoEntity(
                 UUID.randomUUID(),
-                userRegistrationBody.getUserName(),
-                userRegistrationBody.getPassword(),
-                userRegistrationBody.getAge()
+                userRegistrationDTOBody.getUserName(),
+                userRegistrationDTOBody.getPassword(),
+                userRegistrationDTOBody.getAge()
         );
 
-        USERS.add(userInfo);
+        USERS.add(userInfoEntity);
 
-        return userInfo;
+        return new UserInfoDTO(userInfoEntity);
     }
 }
