@@ -5,6 +5,6 @@ import guru.qa.booklibrary.domain.entity.users.UserInfoEntity;
 
 public interface UserRepository {
 
-    UserInfoEntity addUser(UserRegistrationRequest userRegistrationRequestBody);
+    UserInfoEntity addUser(UserInfoEntity userInfoEntity);
 
 }
