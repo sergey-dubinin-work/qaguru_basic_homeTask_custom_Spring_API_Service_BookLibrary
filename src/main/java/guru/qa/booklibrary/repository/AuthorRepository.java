@@ -1,26 +1,20 @@
 package guru.qa.booklibrary.repository;
 
-import guru.qa.booklibrary.dto.authors.AddAuthorRequest;
 import guru.qa.booklibrary.entity.authors.AuthorEntity;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+@Repository
 public class AuthorRepository {
 
-    private List<AuthorEntity> authors = new ArrayList<>();
+    private final List<AuthorEntity> authors = new ArrayList<>();
 
-    public AuthorEntity addAuthor(AddAuthorRequest addAuthorRequest){
+    public AuthorEntity addAuthor(AuthorEntity addAuthorEntity){
+        authors.add(addAuthorEntity);
+        return addAuthorEntity;
 
-        AuthorEntity authorEntity = new AuthorEntity(
-                UUID.randomUUID(),
-                addAuthorRequest.getName()
-        );
-
-        authors.add(authorEntity);
-
-        return authorEntity;
     }
 
 }

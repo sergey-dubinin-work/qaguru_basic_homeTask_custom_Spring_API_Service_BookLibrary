@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class AddAuthorRequest {
-    private String name;
+    private String authorName;
 }
