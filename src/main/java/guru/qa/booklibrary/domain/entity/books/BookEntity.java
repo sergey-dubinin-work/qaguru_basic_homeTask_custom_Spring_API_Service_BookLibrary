@@ -1,4 +1,4 @@
-package guru.qa.booklibrary.entity.books;
+package guru.qa.booklibrary.domain.entity.books;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

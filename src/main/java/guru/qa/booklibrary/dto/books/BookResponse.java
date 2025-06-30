@@ -1,6 +1,6 @@
 package guru.qa.booklibrary.dto.books;
 
-import guru.qa.booklibrary.entity.books.BookEntity;
+import guru.qa.booklibrary.domain.entity.books.BookEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

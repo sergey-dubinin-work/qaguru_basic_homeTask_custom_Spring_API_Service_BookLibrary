@@ -1,6 +1,6 @@
 package guru.qa.booklibrary.dto.users;
 
-import guru.qa.booklibrary.entity.users.UserInfoEntity;
+import guru.qa.booklibrary.domain.entity.users.UserInfoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
