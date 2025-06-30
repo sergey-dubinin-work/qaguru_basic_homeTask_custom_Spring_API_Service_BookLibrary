@@ -20,4 +20,9 @@ public class InMemoryBookRepository implements BookRepository {
         return bookEntity;
     }
 
+    @Override
+    public List<BookEntity> getBooks() {
+        return new ArrayList<>(books);
+    }
+
 }

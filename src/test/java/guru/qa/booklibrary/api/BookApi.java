@@ -19,4 +19,12 @@ public class BookApi {
                 .extract().response();
     }
 
+    public static Response getBooks(){
+        return given()
+                .when()
+                .get(BOOK)
+                .then()
+                .extract().response();
+    }
+
 }

@@ -5,10 +5,9 @@ import guru.qa.booklibrary.dto.books.BookResponse;
 import guru.qa.booklibrary.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -25,6 +24,14 @@ public class BookController {
     @Operation(summary = "Добавление книги")
     public BookResponse addBook(@RequestBody AddBookRequest addBookRequest){
         return new BookResponse(bookService.addBook(addBookRequest));
+    }
+
+    @GetMapping()
+    @Operation(summary = "Получение списка книг")
+    public List<BookResponse> getBooks(){
+        return bookService.getBooks().stream()
+                .map(BookResponse::new)
+                .toList();
     }
 
 }
