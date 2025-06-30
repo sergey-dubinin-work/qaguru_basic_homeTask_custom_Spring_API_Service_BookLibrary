@@ -9,5 +9,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AuthorEntity {
     private UUID uuid;
-    private String name;
+    private String authorName;
 }

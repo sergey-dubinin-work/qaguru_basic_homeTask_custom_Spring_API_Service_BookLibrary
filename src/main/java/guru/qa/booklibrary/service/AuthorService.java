@@ -5,6 +5,7 @@ import guru.qa.booklibrary.entity.authors.AuthorEntity;
 import guru.qa.booklibrary.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,9 +24,10 @@ public class AuthorService {
                 addAuthorRequest.getAuthorName()
         );
 
-        authorRepository.addAuthor(authorEntity);
+        return authorRepository.addAuthor(authorEntity);
+    }
 
-        return authorEntity;
-
+    public List<AuthorEntity> getAuthors(){
+        return authorRepository.getAuthors();
     }
 }

@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/author")
 @Tag(name = "Author", description = "Операции с авторами книг")
@@ -22,6 +24,15 @@ public class AuthorController {
     @Operation(summary = "Добавление нового автора")
     public AuthorResponse addAuthor(@RequestBody AddAuthorRequest addAuthorRequest){
         return new AuthorResponse(authorService.addAuthor(addAuthorRequest));
+    }
+
+    @GetMapping()
+    @Operation(summary = "Получение списка авторов")
+    public List<AuthorResponse> getAuthors(){
+        return authorService.getAuthors()
+                .stream()
+                .map(AuthorResponse::new)
+                .toList();
     }
 
 }

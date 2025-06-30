@@ -17,4 +17,8 @@ public class AuthorRepository {
 
     }
 
+    public List<AuthorEntity> getAuthors(){
+        return new ArrayList<>(authors);
+    }
+
 }

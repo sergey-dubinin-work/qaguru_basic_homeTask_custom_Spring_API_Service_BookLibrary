@@ -10,10 +10,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AuthorResponse {
     private UUID uuid;
-    private String name;
+    private String authorName;
 
     public AuthorResponse(AuthorEntity authorEntity){
         this.uuid = authorEntity.getUuid();
-        this.name = authorEntity.getName();
+        this.authorName = authorEntity.getAuthorName();
     }
 }
