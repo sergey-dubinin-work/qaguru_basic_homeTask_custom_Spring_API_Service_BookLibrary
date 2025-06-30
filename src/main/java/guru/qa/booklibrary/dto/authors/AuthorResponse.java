@@ -11,11 +11,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthorResponse {
-    private UUID uuid;
+    private UUID id;
     private String authorName;
 
     public AuthorResponse(AuthorEntity authorEntity){
-        this.uuid = authorEntity.getUuid();
+        this.id = authorEntity.getId();
         this.authorName = authorEntity.getAuthorName();
     }
 }

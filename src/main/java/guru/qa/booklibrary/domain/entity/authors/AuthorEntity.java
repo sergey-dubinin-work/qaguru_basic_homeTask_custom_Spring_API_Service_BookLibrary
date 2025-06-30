@@ -8,6 +8,6 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 public class AuthorEntity {
-    private UUID uuid;
+    private UUID id;
     private String authorName;
 }

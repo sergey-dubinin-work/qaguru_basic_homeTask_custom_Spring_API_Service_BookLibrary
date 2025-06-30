@@ -26,7 +26,7 @@ public class AuthorTest extends BookLibraryApiTest {
 
         assertAll(
                 () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_OK),
-                () -> assertThat(authorResponse.getUuid()).isNotNull(),
+                () -> assertThat(authorResponse.getId()).isNotNull(),
                 () -> assertThat(authorResponse.getAuthorName()).isEqualTo(addAuthorRequest.getAuthorName())
         );
 
@@ -43,14 +43,14 @@ public class AuthorTest extends BookLibraryApiTest {
         List<AuthorResponse> authorsResponse = AuthorApi.getAuthors().jsonPath().getList("", AuthorResponse.class);
 
         AuthorResponse authorResponseFromList = authorsResponse.stream()
-                        .filter(author -> author.getUuid().equals(authorResponse.getUuid()))
+                        .filter(author -> author.getId().equals(authorResponse.getId()))
                                 .findFirst().orElse(null);
 
         assertAll(
                 () -> assertThat(authorsResponse).isNotEmpty(),
                 () -> assertThat(authorResponseFromList).isNotNull(),
                 () -> assertThat(authorResponseFromList.getAuthorName()).isEqualTo(addAuthorRequest.getAuthorName()),
-                () -> assertThat(authorResponseFromList.getUuid()).isEqualTo(authorResponse.getUuid())
+                () -> assertThat(authorResponseFromList.getId()).isEqualTo(authorResponse.getId())
         );
 
     }

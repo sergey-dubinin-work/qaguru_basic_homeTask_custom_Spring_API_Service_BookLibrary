@@ -21,7 +21,7 @@ public class BookTest extends BookLibraryApiTest {
         AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters();
 
         AddBookRequest addBookRequestBody = AddBookRequest.builder()
-                .authorId(authorResponse.getUuid())
+                .authorId(authorResponse.getId())
                 .bookName(faker.starWars().wookieWords())
                 .build();
 
