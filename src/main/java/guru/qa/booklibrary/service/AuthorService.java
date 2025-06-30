@@ -11,7 +11,7 @@ import java.util.UUID;
 @Service
 public class AuthorService {
 
-    AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
     public AuthorService(AuthorRepository authorRepository){
         this.authorRepository = authorRepository;
