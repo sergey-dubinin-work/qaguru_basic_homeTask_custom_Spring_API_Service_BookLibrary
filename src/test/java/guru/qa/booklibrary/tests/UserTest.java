@@ -61,4 +61,27 @@ public class UserTest extends BookLibraryApiTest {
 
     }
 
+    @Test
+    void testGetUserInfo() {
+        UserRegistrationRequest userRegistrationRequest = DataGeneratorUser.getUserRegistrationRequestWithOnlyRequiredParameters();
+
+        UserInfoResponse userCreationInfoResponse = UserApi.registerUser(userRegistrationRequest).as(UserInfoResponse.class);
+
+        UserAuthResponse userAuthResponse = UserApi.getToken(
+                new UserAuthRequest(
+                        userRegistrationRequest.getUserName(),
+                        userRegistrationRequest.getPassword()
+                )
+        ).as(UserAuthResponse.class);
+
+        Response response = UserApi.getUserInfo(userAuthResponse.getToken());
+
+        UserInfoResponse userInfoResponse = response.as(UserInfoResponse.class);
+
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_OK),
+                () -> assertThat(userInfoResponse).usingRecursiveComparison().isEqualTo(userCreationInfoResponse)
+        );
+
+    }
 }

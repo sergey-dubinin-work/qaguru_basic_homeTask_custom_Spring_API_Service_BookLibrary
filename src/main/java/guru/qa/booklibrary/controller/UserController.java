@@ -10,10 +10,7 @@ import guru.qa.booklibrary.service.UserAuthorizationService;
 import guru.qa.booklibrary.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -46,6 +43,14 @@ public class UserController {
     public UserAuthResponse authorizeUser(@RequestBody UserAuthRequest userLogInData) {
         return userAuthMapper.toResponse(
                 userAuthorizationService.getToken(userAuthMapper.fromRequest(userLogInData))
+        );
+    }
+
+    @GetMapping("/userInfo")
+    @Operation(summary = "Getting user info")
+    public UserInfoResponse getUserInfo(@RequestHeader("Authorization") String authHeader){
+        return userMapper.toResponse(
+                userAuthorizationService.getUserByBearerTokenHeader(authHeader)
         );
     }
 

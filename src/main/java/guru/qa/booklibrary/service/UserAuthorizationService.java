@@ -38,4 +38,16 @@ public class UserAuthorizationService {
         }
 
     }
+
+    public UserEntity getUserByBearerTokenHeader(String authHeader){
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")){
+            String token = authHeader.substring(7);
+            UserTokenEntity userTokenEntity = userTokenRepository.findByToken(token);
+            return userRepository.getUserByUserId(userTokenEntity.getUserId());
+        } else {
+            throw new UserNotAuthorizedException();
+        }
+
+    }
 }

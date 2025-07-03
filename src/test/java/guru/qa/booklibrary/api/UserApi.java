@@ -11,6 +11,7 @@ public class UserApi {
 
     private static final String USER_REGISTER  = "/user/register";
     private static final String USER_GET_TOKEN = "/user/getToken";
+    private static final String USER_USER_INFO = "/user/userInfo";
 
     public static Response registerUser(UserRegistrationRequest userRegistrationRequest){
 
@@ -31,6 +32,15 @@ public class UserApi {
                 .body(userAuthRequest)
                 .when()
                 .post(USER_GET_TOKEN)
+                .then()
+                .extract().response();
+    }
+
+    public static Response getUserInfo(String token){
+        return given()
+                .auth().oauth2(token)
+                .when()
+                .get(USER_USER_INFO)
                 .then()
                 .extract().response();
     }

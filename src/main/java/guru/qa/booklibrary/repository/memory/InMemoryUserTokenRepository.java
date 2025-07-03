@@ -2,6 +2,7 @@ package guru.qa.booklibrary.repository.memory;
 
 import guru.qa.booklibrary.domain.entity.userTokens.UserTokenEntity;
 import guru.qa.booklibrary.domain.repository.UserTokenRepository;
+import guru.qa.booklibrary.exception.UserNotAuthorizedException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,13 @@ public class InMemoryUserTokenRepository implements UserTokenRepository {
     public UserTokenEntity addToken(UserTokenEntity userTokenEntity) {
         tokens.add(userTokenEntity);
         return userTokenEntity;
+    }
+
+    @Override
+    public UserTokenEntity findByToken(String userToken) {
+            return tokens.stream()
+                    .filter(userTokenEntity -> userTokenEntity.getToken().equals(userToken))
+                    .findFirst().orElseThrow(UserNotAuthorizedException::new);
     }
 
 }

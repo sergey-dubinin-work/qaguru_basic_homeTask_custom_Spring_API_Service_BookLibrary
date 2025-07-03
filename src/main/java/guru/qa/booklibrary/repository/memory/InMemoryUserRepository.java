@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @Profile("dev")
@@ -27,6 +28,14 @@ public class InMemoryUserRepository implements UserRepository {
                 .filter(user -> user.getUserName().equals(userEntity.getUserName())
                         && user.getPassword().equals(userEntity.getPassword()))
                 .findFirst().orElse(null);
+    }
+
+    @Override
+    public UserEntity getUserByUserId(UUID id) {
+        return USERS.stream()
+                .filter(user -> user.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
 }
