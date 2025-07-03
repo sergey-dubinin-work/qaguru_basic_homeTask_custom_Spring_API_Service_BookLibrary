@@ -172,10 +172,10 @@ Authorization: Bearer tokenabc
 </details>
 
 ## 🗃 Структура базы данных
-authors (id, name)
-books (id, title, authorId)
-bookshelf (id, bookId, rentedByUserId)
-users (id, username, password, age)
+authors (id, name)\
+books (id, title, authorId)\
+bookshelf (id, bookId, rentedByUserId)\
+users (id, username, password, age)\
 userTokens (id, userId, token)
 
 ## 🧪 Тестирование
