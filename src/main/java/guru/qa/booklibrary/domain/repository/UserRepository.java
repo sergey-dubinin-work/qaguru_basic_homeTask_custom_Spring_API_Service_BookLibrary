@@ -1,10 +1,9 @@
 package guru.qa.booklibrary.domain.repository;
 
-import guru.qa.booklibrary.dto.users.UserRegistrationRequest;
-import guru.qa.booklibrary.domain.entity.users.UserInfoEntity;
+import guru.qa.booklibrary.domain.entity.users.UserEntity;
 
 public interface UserRepository {
 
-    UserInfoEntity addUser(UserInfoEntity userInfoEntity);
+    UserEntity addUser(UserEntity userEntity);
 
 }

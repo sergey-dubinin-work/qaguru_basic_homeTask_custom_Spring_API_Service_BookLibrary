@@ -1,6 +1,6 @@
 package guru.qa.booklibrary.repository.memory;
 
-import guru.qa.booklibrary.domain.entity.users.UserInfoEntity;
+import guru.qa.booklibrary.domain.entity.users.UserEntity;
 import guru.qa.booklibrary.domain.repository.UserRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -12,13 +12,13 @@ import java.util.List;
 @Profile("dev")
 public class InMemoryUserRepository implements UserRepository {
 
-    private static final List<UserInfoEntity> USERS = new ArrayList<>();
+    private static final List<UserEntity> USERS = new ArrayList<>();
 
     @Override
-    public UserInfoEntity addUser(UserInfoEntity userInfoEntity){
-        USERS.add(userInfoEntity);
+    public UserEntity addUser(UserEntity userEntity){
+        USERS.add(userEntity);
 
-        return userInfoEntity;
+        return userEntity;
     }
 
 }

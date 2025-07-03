@@ -1,6 +1,5 @@
 package guru.qa.booklibrary.dto.bookShelf;
 
-import guru.qa.booklibrary.domain.entity.bookShelf.BookShelfEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

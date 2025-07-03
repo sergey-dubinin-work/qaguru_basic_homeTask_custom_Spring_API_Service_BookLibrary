@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class UserInfoEntity {
+public class UserEntity {
     private UUID id;
     private String userName;
     private String password;
