@@ -2,6 +2,9 @@ package guru.qa.booklibrary.tests;
 
 import guru.qa.booklibrary.BookLibraryApiTest;
 import guru.qa.booklibrary.api.UserApi;
+import guru.qa.booklibrary.dataGenerators.DataGeneratorUser;
+import guru.qa.booklibrary.dto.users.UserAuthRequest;
+import guru.qa.booklibrary.dto.users.UserAuthResponse;
 import guru.qa.booklibrary.dto.users.UserInfoResponse;
 import guru.qa.booklibrary.dto.users.UserRegistrationRequest;
 import io.restassured.response.Response;
@@ -34,4 +37,28 @@ public class UserTest extends BookLibraryApiTest {
         );
 
     }
+
+    @Test
+    void testUserAuthorization() {
+        UserRegistrationRequest userRegistrationRequest = DataGeneratorUser.getUserRegistrationRequestWithOnlyRequiredParameters();
+
+        UserApi.registerUser(userRegistrationRequest);
+
+        Response response = UserApi.getToken(
+                new UserAuthRequest(
+                        userRegistrationRequest.getUserName(),
+                        userRegistrationRequest.getPassword()
+                )
+        );
+
+        UserAuthResponse userAuthResponse = response.as(UserAuthResponse.class);
+
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_OK),
+                () -> assertThat(userAuthResponse).isNotNull(),
+                () -> assertThat(userAuthResponse.getToken()).isNotNull()
+        );
+
+    }
+
 }

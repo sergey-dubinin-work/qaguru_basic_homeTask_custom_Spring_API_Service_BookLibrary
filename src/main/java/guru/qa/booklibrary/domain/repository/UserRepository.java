@@ -6,4 +6,5 @@ public interface UserRepository {
 
     UserEntity addUser(UserEntity userEntity);
 
+    UserEntity getUserByUsernameAndPassword(UserEntity userEntity);
 }

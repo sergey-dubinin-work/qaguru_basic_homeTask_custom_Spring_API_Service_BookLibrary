@@ -21,4 +21,12 @@ public class InMemoryUserRepository implements UserRepository {
         return userEntity;
     }
 
+    @Override
+    public UserEntity getUserByUsernameAndPassword(UserEntity userEntity) {
+        return USERS.stream()
+                .filter(user -> user.getUserName().equals(userEntity.getUserName())
+                        && user.getPassword().equals(userEntity.getPassword()))
+                .findFirst().orElse(null);
+    }
+
 }
