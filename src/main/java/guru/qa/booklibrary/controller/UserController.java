@@ -9,6 +9,7 @@ import guru.qa.booklibrary.model.mapper.UserMapper;
 import guru.qa.booklibrary.service.UserAuthorizationService;
 import guru.qa.booklibrary.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +49,9 @@ public class UserController {
 
     @GetMapping("/userInfo")
     @Operation(summary = "Getting user info")
-    public UserInfoResponse getUserInfo(@RequestHeader("Authorization") String authHeader){
+    public UserInfoResponse getUserInfo(
+            @Parameter(required = true)
+            @RequestHeader(value = "Authorization", required = false) String authHeader){
         return userMapper.toResponse(
                 userAuthorizationService.getUserByBearerTokenHeader(authHeader)
         );
