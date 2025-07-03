@@ -2,8 +2,8 @@ package guru.qa.booklibrary.tests;
 
 import guru.qa.booklibrary.BookLibraryApiTest;
 import guru.qa.booklibrary.api.AuthorApi;
-import guru.qa.booklibrary.dto.authors.AddAuthorRequest;
-import guru.qa.booklibrary.dto.authors.AuthorResponse;
+import guru.qa.booklibrary.model.dto.authors.AddAuthorRequest;
+import guru.qa.booklibrary.model.dto.authors.AuthorResponse;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;

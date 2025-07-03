@@ -1,11 +1,11 @@
 package guru.qa.booklibrary.controller;
 
-import guru.qa.booklibrary.dto.users.UserAuthRequest;
-import guru.qa.booklibrary.dto.users.UserAuthResponse;
-import guru.qa.booklibrary.dto.users.UserInfoResponse;
-import guru.qa.booklibrary.dto.users.UserRegistrationRequest;
-import guru.qa.booklibrary.mapper.UserAuthMapper;
-import guru.qa.booklibrary.mapper.UserMapper;
+import guru.qa.booklibrary.model.dto.users.UserAuthRequest;
+import guru.qa.booklibrary.model.dto.users.UserAuthResponse;
+import guru.qa.booklibrary.model.dto.users.UserInfoResponse;
+import guru.qa.booklibrary.model.dto.users.UserRegistrationRequest;
+import guru.qa.booklibrary.model.mapper.UserAuthMapper;
+import guru.qa.booklibrary.model.mapper.UserMapper;
 import guru.qa.booklibrary.service.UserAuthorizationService;
 import guru.qa.booklibrary.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;

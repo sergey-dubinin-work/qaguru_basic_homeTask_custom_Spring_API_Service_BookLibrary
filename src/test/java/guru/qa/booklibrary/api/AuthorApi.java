@@ -1,6 +1,6 @@
 package guru.qa.booklibrary.api;
 
-import guru.qa.booklibrary.dto.authors.AddAuthorRequest;
+import guru.qa.booklibrary.model.dto.authors.AddAuthorRequest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 

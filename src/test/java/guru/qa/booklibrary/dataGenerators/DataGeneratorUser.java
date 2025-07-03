@@ -1,6 +1,6 @@
 package guru.qa.booklibrary.dataGenerators;
 
-import guru.qa.booklibrary.dto.users.UserRegistrationRequest;
+import guru.qa.booklibrary.model.dto.users.UserRegistrationRequest;
 
 public class DataGeneratorUser extends DataGeneratorBase{
 

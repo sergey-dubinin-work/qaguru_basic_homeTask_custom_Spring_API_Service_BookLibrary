@@ -1,9 +1,9 @@
 package guru.qa.booklibrary.service;
 
-import guru.qa.booklibrary.domain.entity.userTokens.UserTokenEntity;
-import guru.qa.booklibrary.domain.entity.users.UserEntity;
-import guru.qa.booklibrary.domain.repository.UserRepository;
-import guru.qa.booklibrary.domain.repository.UserTokenRepository;
+import guru.qa.booklibrary.model.entity.userTokens.UserTokenEntity;
+import guru.qa.booklibrary.model.entity.users.UserEntity;
+import guru.qa.booklibrary.repository.UserRepository;
+import guru.qa.booklibrary.repository.UserTokenRepository;
 import guru.qa.booklibrary.exception.UserNotAuthorizedException;
 import org.springframework.stereotype.Service;
 

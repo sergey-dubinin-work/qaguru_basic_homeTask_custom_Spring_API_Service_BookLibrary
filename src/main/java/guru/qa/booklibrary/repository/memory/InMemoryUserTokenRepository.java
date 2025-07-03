@@ -1,7 +1,7 @@
 package guru.qa.booklibrary.repository.memory;
 
-import guru.qa.booklibrary.domain.entity.userTokens.UserTokenEntity;
-import guru.qa.booklibrary.domain.repository.UserTokenRepository;
+import guru.qa.booklibrary.model.entity.userTokens.UserTokenEntity;
+import guru.qa.booklibrary.repository.UserTokenRepository;
 import guru.qa.booklibrary.exception.UserNotAuthorizedException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
 package guru.qa.booklibrary.service;
 
-import guru.qa.booklibrary.domain.entity.bookShelf.BookShelfEntity;
-import guru.qa.booklibrary.domain.repository.BookShelfRepository;
+import guru.qa.booklibrary.model.entity.bookShelf.BookShelfEntity;
+import guru.qa.booklibrary.repository.BookShelfRepository;
 import org.springframework.stereotype.Service;
 
 @Service

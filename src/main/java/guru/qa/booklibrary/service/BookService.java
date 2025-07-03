@@ -1,12 +1,10 @@
 package guru.qa.booklibrary.service;
 
-import guru.qa.booklibrary.dto.books.AddBookRequest;
-import guru.qa.booklibrary.domain.entity.books.BookEntity;
-import guru.qa.booklibrary.domain.repository.BookRepository;
+import guru.qa.booklibrary.model.entity.books.BookEntity;
+import guru.qa.booklibrary.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class BookService {

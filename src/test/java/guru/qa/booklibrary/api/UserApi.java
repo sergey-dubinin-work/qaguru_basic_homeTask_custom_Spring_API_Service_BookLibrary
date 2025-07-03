@@ -1,7 +1,7 @@
 package guru.qa.booklibrary.api;
 
-import guru.qa.booklibrary.dto.users.UserAuthRequest;
-import guru.qa.booklibrary.dto.users.UserRegistrationRequest;
+import guru.qa.booklibrary.model.dto.users.UserAuthRequest;
+import guru.qa.booklibrary.model.dto.users.UserRegistrationRequest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 

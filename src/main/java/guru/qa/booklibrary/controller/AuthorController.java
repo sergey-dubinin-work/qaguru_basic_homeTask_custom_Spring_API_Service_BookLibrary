@@ -1,8 +1,8 @@
 package guru.qa.booklibrary.controller;
 
-import guru.qa.booklibrary.dto.authors.AddAuthorRequest;
-import guru.qa.booklibrary.dto.authors.AuthorResponse;
-import guru.qa.booklibrary.mapper.AuthorMapper;
+import guru.qa.booklibrary.model.dto.authors.AddAuthorRequest;
+import guru.qa.booklibrary.model.dto.authors.AuthorResponse;
+import guru.qa.booklibrary.model.mapper.AuthorMapper;
 import guru.qa.booklibrary.service.AuthorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

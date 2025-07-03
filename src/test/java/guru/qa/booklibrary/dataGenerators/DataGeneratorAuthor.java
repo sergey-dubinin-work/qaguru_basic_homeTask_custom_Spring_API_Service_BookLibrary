@@ -1,8 +1,8 @@
 package guru.qa.booklibrary.dataGenerators;
 
 import guru.qa.booklibrary.api.AuthorApi;
-import guru.qa.booklibrary.dto.authors.AddAuthorRequest;
-import guru.qa.booklibrary.dto.authors.AuthorResponse;
+import guru.qa.booklibrary.model.dto.authors.AddAuthorRequest;
+import guru.qa.booklibrary.model.dto.authors.AuthorResponse;
 
 public class DataGeneratorAuthor extends DataGeneratorBase{
 

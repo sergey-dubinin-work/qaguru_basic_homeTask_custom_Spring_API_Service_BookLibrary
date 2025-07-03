@@ -3,9 +3,9 @@ package guru.qa.booklibrary.tests;
 import guru.qa.booklibrary.BookLibraryApiTest;
 import guru.qa.booklibrary.api.BookShelfApi;
 import guru.qa.booklibrary.dataGenerators.DataGeneratorBook;
-import guru.qa.booklibrary.dto.bookShelf.AddBookToBookShelfRequest;
-import guru.qa.booklibrary.dto.bookShelf.BookShelfResponse;
-import guru.qa.booklibrary.dto.books.BookResponse;
+import guru.qa.booklibrary.model.dto.bookShelf.AddBookToBookShelfRequest;
+import guru.qa.booklibrary.model.dto.bookShelf.BookShelfResponse;
+import guru.qa.booklibrary.model.dto.books.BookResponse;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

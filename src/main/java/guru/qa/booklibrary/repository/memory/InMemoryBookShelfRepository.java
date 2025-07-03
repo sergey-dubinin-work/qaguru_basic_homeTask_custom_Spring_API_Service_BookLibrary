@@ -1,7 +1,7 @@
 package guru.qa.booklibrary.repository.memory;
 
-import guru.qa.booklibrary.domain.entity.bookShelf.BookShelfEntity;
-import guru.qa.booklibrary.domain.repository.BookShelfRepository;
+import guru.qa.booklibrary.model.entity.bookShelf.BookShelfEntity;
+import guru.qa.booklibrary.repository.BookShelfRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 

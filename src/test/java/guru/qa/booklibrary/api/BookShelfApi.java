@@ -1,6 +1,6 @@
 package guru.qa.booklibrary.api;
 
-import guru.qa.booklibrary.dto.bookShelf.AddBookToBookShelfRequest;
+import guru.qa.booklibrary.model.dto.bookShelf.AddBookToBookShelfRequest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
