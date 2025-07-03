@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/author")
-@Tag(name = "Author", description = "Операции с авторами книг")
+@Tag(name = "Author", description = "Operations with book authors")
 public class AuthorController {
 
     private final AuthorService authorService;
@@ -21,13 +21,13 @@ public class AuthorController {
     }
 
     @PostMapping()
-    @Operation(summary = "Добавление нового автора")
+    @Operation(summary = "Adding new book author")
     public AuthorResponse addAuthor(@RequestBody AddAuthorRequest addAuthorRequest){
         return new AuthorResponse(authorService.addAuthor(addAuthorRequest));
     }
 
     @GetMapping()
-    @Operation(summary = "Получение списка авторов")
+    @Operation(summary = "Getting book authors list")
     public List<AuthorResponse> getAuthors(){
         return authorService.getAuthors()
                 .stream()

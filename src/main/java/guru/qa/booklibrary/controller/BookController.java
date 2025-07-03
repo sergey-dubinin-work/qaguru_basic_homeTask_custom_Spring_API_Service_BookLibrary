@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/book")
-@Tag(name = "Book", description = "Операции с книгами")
+@Tag(name = "Book", description = "Operations with books")
 public class BookController {
 
     private final BookService bookService;
@@ -21,13 +21,13 @@ public class BookController {
     }
 
     @PostMapping()
-    @Operation(summary = "Добавление книги")
+    @Operation(summary = "Adding book")
     public BookResponse addBook(@RequestBody AddBookRequest addBookRequest){
         return new BookResponse(bookService.addBook(addBookRequest));
     }
 
     @GetMapping()
-    @Operation(summary = "Получение списка книг")
+    @Operation(summary = "Getting books list")
     public List<BookResponse> getBooks(){
         return bookService.getBooks().stream()
                 .map(BookResponse::new)

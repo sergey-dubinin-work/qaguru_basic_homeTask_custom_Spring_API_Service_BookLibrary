@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
-@Tag(name = "User", description = "Операции с пользователями")
+@Tag(name = "User", description = "Operations with users")
 public class UserController {
 
     private final UserService userService;
@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    @Operation(summary = "Регистрация нового пользователя")
+    @Operation(summary = "User registration")
     public UserInfoResponse registerUser(@RequestBody UserRegistrationRequest userRegistrationRequest){
         return new UserInfoResponse(userService.registerUser(userRegistrationRequest));
     }
