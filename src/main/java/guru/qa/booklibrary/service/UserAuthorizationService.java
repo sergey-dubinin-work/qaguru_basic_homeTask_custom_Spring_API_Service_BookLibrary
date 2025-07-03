@@ -12,12 +12,12 @@ import java.util.UUID;
 import static java.util.Objects.isNull;
 
 @Service
-public class AuthorizationService {
+public class UserAuthorizationService {
 
     private final UserRepository userRepository;
     private final UserTokenRepository userTokenRepository;
 
-    public AuthorizationService(UserRepository userRepository, UserTokenRepository userTokenRepository){
+    public UserAuthorizationService(UserRepository userRepository, UserTokenRepository userTokenRepository){
         this.userRepository = userRepository;
         this.userTokenRepository = userTokenRepository;
     }

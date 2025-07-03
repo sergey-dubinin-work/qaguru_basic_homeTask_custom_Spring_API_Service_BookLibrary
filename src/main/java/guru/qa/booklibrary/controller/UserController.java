@@ -6,7 +6,7 @@ import guru.qa.booklibrary.dto.users.UserInfoResponse;
 import guru.qa.booklibrary.dto.users.UserRegistrationRequest;
 import guru.qa.booklibrary.mapper.UserAuthMapper;
 import guru.qa.booklibrary.mapper.UserMapper;
-import guru.qa.booklibrary.service.AuthorizationService;
+import guru.qa.booklibrary.service.UserAuthorizationService;
 import guru.qa.booklibrary.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-    private final AuthorizationService authorizationService;
+    private final UserAuthorizationService userAuthorizationService;
     private final UserMapper userMapper;
     private final UserAuthMapper userAuthMapper;
 
-    public UserController(UserService userService, AuthorizationService authorizationService, UserMapper userMapper, UserAuthMapper userAuthMapper) {
+    public UserController(UserService userService, UserAuthorizationService userAuthorizationService, UserMapper userMapper, UserAuthMapper userAuthMapper) {
         this.userService = userService;
-        this.authorizationService = authorizationService;
+        this.userAuthorizationService = userAuthorizationService;
         this.userMapper = userMapper;
         this.userAuthMapper = userAuthMapper;
     }
@@ -45,7 +45,7 @@ public class UserController {
     @Operation(summary = "Authorization and getting token")
     public UserAuthResponse authorizeUser(@RequestBody UserAuthRequest userLogInData) {
         return userAuthMapper.toResponse(
-                authorizationService.getToken(userAuthMapper.fromRequest(userLogInData))
+                userAuthorizationService.getToken(userAuthMapper.fromRequest(userLogInData))
         );
     }
 
