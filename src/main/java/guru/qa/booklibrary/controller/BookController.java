@@ -2,6 +2,7 @@ package guru.qa.booklibrary.controller;
 
 import guru.qa.booklibrary.dto.books.AddBookRequest;
 import guru.qa.booklibrary.dto.books.BookResponse;
+import guru.qa.booklibrary.mapper.BookMapper;
 import guru.qa.booklibrary.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,22 +16,26 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
+    private final BookMapper bookMapper;
 
-    public BookController(BookService bookService){
+    public BookController(BookService bookService, BookMapper bookMapper){
         this.bookService = bookService;
+        this.bookMapper = bookMapper;
     }
 
     @PostMapping()
     @Operation(summary = "Adding book")
     public BookResponse addBook(@RequestBody AddBookRequest addBookRequest){
-        return new BookResponse(bookService.addBook(addBookRequest));
+        return bookMapper.toResponse(
+                bookService.addBook(bookMapper.fromRequest(addBookRequest))
+        );
     }
 
     @GetMapping()
     @Operation(summary = "Getting books list")
     public List<BookResponse> getBooks(){
         return bookService.getBooks().stream()
-                .map(BookResponse::new)
+                .map(bookMapper::toResponse)
                 .toList();
     }
 

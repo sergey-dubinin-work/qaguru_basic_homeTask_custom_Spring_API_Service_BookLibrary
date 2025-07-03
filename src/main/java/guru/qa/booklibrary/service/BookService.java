@@ -17,13 +17,7 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public BookEntity addBook(AddBookRequest addBookRequest){
-        BookEntity bookEntity = new BookEntity(
-                UUID.randomUUID(),
-                addBookRequest.getAuthorId(),
-                addBookRequest.getBookName()
-        );
-
+    public BookEntity addBook(BookEntity bookEntity){
         return bookRepository.addBook(bookEntity);
     }
 

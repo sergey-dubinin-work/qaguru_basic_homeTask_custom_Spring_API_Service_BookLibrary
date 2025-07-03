@@ -14,10 +14,4 @@ public class BookResponse {
     private UUID id;
     private UUID authorId;
     private String bookName;
-
-    public BookResponse(BookEntity bookEntity){
-        this.id = bookEntity.getId();
-        this.authorId = bookEntity.getAuthorId();
-        this.bookName = bookEntity.getBookName();
-    }
 }
