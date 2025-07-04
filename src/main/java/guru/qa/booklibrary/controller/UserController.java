@@ -34,7 +34,11 @@ public class UserController {
     @Operation(summary = "User registration")
     public UserInfoResponse registerUser(@RequestBody UserRegistrationRequest userRegistrationRequest){
         return userMapper.toResponse(
-                userService.registerUser(userMapper.fromResponse(userRegistrationRequest))
+                userService.registerUser(
+                        userRegistrationRequest.getUserName(),
+                        userRegistrationRequest.getPassword(),
+                        userRegistrationRequest.getAge()
+                )
         );
     }
 
@@ -43,7 +47,10 @@ public class UserController {
     @Operation(summary = "Authorization and getting token")
     public UserAuthResponse authorizeUser(@RequestBody UserAuthRequest userLogInData) {
         return userAuthMapper.toResponse(
-                userAuthorizationService.getToken(userAuthMapper.fromRequest(userLogInData))
+                userAuthorizationService.getToken(
+                        userLogInData.getUserName(),
+                        userLogInData.getPassword()
+                )
         );
     }
 

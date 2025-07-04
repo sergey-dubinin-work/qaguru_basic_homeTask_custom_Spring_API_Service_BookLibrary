@@ -37,7 +37,8 @@ public class AuthorController {
             @RequestBody AddAuthorRequest addAuthorRequest) {
         if (!isNull(userAuthorizationService.getUserByBearerTokenHeader(authHeader))) {
             return authorMapper.toResponse(
-                    authorService.addAuthor(authorMapper.fromRequest(addAuthorRequest)));
+                    authorService.addAuthor(addAuthorRequest.getAuthorName())
+            );
         } else {
             throw new UserNotAuthorizedException();
         }

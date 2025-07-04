@@ -36,7 +36,10 @@ public class BookController {
             @RequestBody AddBookRequest addBookRequest) {
         if (!Objects.isNull(userAuthorizationService.getUserByBearerTokenHeader(authHeader))) {
             return bookMapper.toResponse(
-                    bookService.addBook(bookMapper.fromRequest(addBookRequest))
+                    bookService.addBook(
+                            addBookRequest.getAuthorId(),
+                            addBookRequest.getBookName()
+                    )
             );
         } else {
             throw new UserNotAuthorizedException();

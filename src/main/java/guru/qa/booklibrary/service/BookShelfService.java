@@ -38,13 +38,14 @@ public class BookShelfService {
             throw new NotFoundException();
         }
 
-        BookShelfEntity bookToRent = bookShelfRepository.getFirstFreeBook(bookId);
+        BookShelfEntity shelfEntityToRent = bookShelfRepository.getFirstFreeBook(bookId);
 
-        if (isNull(bookToRent)) {
+        if (isNull(shelfEntityToRent)) {
             throw new NoAvailableBookException();
         }
 
         return bookShelfRepository.setRenterToBookShelfEntity(bookToRent.getId(), userId);
+        return bookShelfRepository.setRenterToBookShelfEntity(shelfEntityToRent.getId(), userId);
     }
 
     public List<BookShelfEntity> getBookShelfState() {

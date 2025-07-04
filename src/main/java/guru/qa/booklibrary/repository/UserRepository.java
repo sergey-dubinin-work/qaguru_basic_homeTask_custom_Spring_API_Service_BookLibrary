@@ -8,7 +8,7 @@ public interface UserRepository {
 
     UserEntity addUser(UserEntity userEntity);
 
-    UserEntity getUserByUsernameAndPassword(UserEntity userEntity);
+    UserEntity getUserByUsernameAndPassword(String userName, String password);
 
     UserEntity getUserByUserId(UUID id);
 }

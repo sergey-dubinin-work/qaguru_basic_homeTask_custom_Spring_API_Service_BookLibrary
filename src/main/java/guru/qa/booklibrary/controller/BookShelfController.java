@@ -51,10 +51,14 @@ public class BookShelfController {
     @Operation(summary = "Rent a book")
     public BookShelfResponse rentABook(
             @Parameter(required = true) @RequestHeader(value = "Authorization", required = false) String authHeader,
-            @RequestBody RentABookRequest rentABookRequestBody){
+            @RequestBody RentABookRequest rentABookRequestBody) {
         UserEntity user = userAuthorizationService.getUserByBearerTokenHeader(authHeader);
         if (!isNull(user)){
             return bookShelfMapper.toResponse(bookShelfService.rentABook(user.getId(), rentABookRequestBody.getBookId()));
+        if (!isNull(user)) {
+            return bookShelfMapper.toResponse(
+                    bookShelfService.rentABook(user.getId(), rentABookRequestBody.getBookId())
+            );
         } else {
             throw new UserNotAuthorizedException();
         }
@@ -63,7 +67,7 @@ public class BookShelfController {
 
     @GetMapping()
     @Operation(summary = "Get bookshelf state")
-    public List<BookShelfResponse> getBookShelfState(){
+    public List<BookShelfResponse> getBookShelfState() {
         return bookShelfService.getBookShelfState().stream()
                 .map(bookShelfMapper::toResponse)
                 .toList();

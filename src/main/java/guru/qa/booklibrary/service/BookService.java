@@ -5,6 +5,7 @@ import guru.qa.booklibrary.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BookService {
@@ -16,6 +17,14 @@ public class BookService {
     }
 
     public BookEntity addBook(BookEntity bookEntity){
+    public BookEntity addBook(UUID authorId, String bookName){
+
+        BookEntity bookEntity = new BookEntity(
+                UUID.randomUUID(),
+                authorId,
+                bookName
+        );
+
         return bookRepository.addBook(bookEntity);
     }
 

@@ -9,15 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserAuthMapper {
 
-    public UserEntity fromRequest(UserAuthRequest userAuthRequest){
-        return new UserEntity(
-                null,
-                userAuthRequest.getUserName(),
-                userAuthRequest.getPassword(),
-                null
-        );
-    }
-
     public UserAuthResponse toResponse(UserTokenEntity userTokenEntity){
         return new UserAuthResponse(userTokenEntity.getToken());
     }

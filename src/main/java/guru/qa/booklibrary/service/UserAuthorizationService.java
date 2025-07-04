@@ -22,9 +22,9 @@ public class UserAuthorizationService {
         this.userTokenRepository = userTokenRepository;
     }
 
-    public UserTokenEntity getToken(UserEntity userEntity){
+    public UserTokenEntity getToken(String username, String password){
 
-        UserEntity authorizedUser = userRepository.getUserByUsernameAndPassword(userEntity);
+        UserEntity authorizedUser = userRepository.getUserByUsernameAndPassword(username, password);
 
         if (isNull(authorizedUser)){
             throw new UserNotAuthorizedException();
