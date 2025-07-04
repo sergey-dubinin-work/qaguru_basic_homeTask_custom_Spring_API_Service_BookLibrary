@@ -13,7 +13,7 @@ public class DataGeneratorBook extends DataGeneratorBase{
                 .build();
     }
 
-    public static BookResponse createBookWithOnlyRequiredParameters(){
-        return BookApi.addBook(getBookRequestWithOnlyRequiredParameters()).as(BookResponse.class);
+    public static BookResponse createBookWithOnlyRequiredParameters(String token){
+        return BookApi.addBook(token, getBookRequestWithOnlyRequiredParameters()).as(BookResponse.class);
     }
 }

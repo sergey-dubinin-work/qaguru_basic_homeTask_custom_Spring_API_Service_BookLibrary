@@ -18,7 +18,7 @@ public class BookShelfTest extends BookLibraryApiTest {
 
     @Test
     void testAddingBookToBookShelfWithUnauthorizedUser() {
-        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters();
+        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters(VALID_TOKEN);
 
         Response response = BookShelfApi.addBookToBookShelf(
                 AddBookToBookShelfRequest.builder()
@@ -38,7 +38,7 @@ public class BookShelfTest extends BookLibraryApiTest {
 
     @Test
     void testAddingBookToBookShelfWithAuthorizedUser() {
-        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters();
+        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters(VALID_TOKEN);
 
         Response response = BookShelfApi.addBookToBookShelf(
                 VALID_TOKEN,

@@ -7,6 +7,7 @@ import guru.qa.booklibrary.dataGenerators.DataGeneratorBook;
 import guru.qa.booklibrary.model.dto.authors.AuthorResponse;
 import guru.qa.booklibrary.model.dto.books.AddBookRequest;
 import guru.qa.booklibrary.model.dto.books.BookResponse;
+import guru.qa.booklibrary.models.ErrorModel;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class BookTest extends BookLibraryApiTest {
 
     @Test
-    void testBookCreation() {
+    void testBookCreationWithUnauthorizedUser() {
 
         AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters();
 
@@ -29,6 +30,50 @@ public class BookTest extends BookLibraryApiTest {
                 .build();
 
         Response response = BookApi.addBook(addBookRequestBody);
+        ErrorModel errorResponse = response.as(ErrorModel.class);
+
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_UNAUTHORIZED),
+                () -> assertThat(errorResponse).isNotNull(),
+                () -> assertThat(errorResponse.getStatus()).isEqualTo(401),
+                () -> assertThat(errorResponse.getError()).isEqualTo("Unauthorized")
+        );
+
+    }
+
+    @Test
+    void testBookCreationWithInvalidTokenUser() {
+
+        AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters();
+
+        AddBookRequest addBookRequestBody = AddBookRequest.builder()
+                .authorId(authorResponse.getId())
+                .bookName(faker.starWars().wookieWords())
+                .build();
+
+        Response response = BookApi.addBook("random_token", addBookRequestBody);
+        ErrorModel errorResponse = response.as(ErrorModel.class);
+
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_UNAUTHORIZED),
+                () -> assertThat(errorResponse).isNotNull(),
+                () -> assertThat(errorResponse.getStatus()).isEqualTo(401),
+                () -> assertThat(errorResponse.getError()).isEqualTo("Unauthorized")
+        );
+
+    }
+
+    @Test
+    void testBookCreationWithAuthorizedUser() {
+
+        AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters();
+
+        AddBookRequest addBookRequestBody = AddBookRequest.builder()
+                .authorId(authorResponse.getId())
+                .bookName(faker.starWars().wookieWords())
+                .build();
+
+        Response response = BookApi.addBook(VALID_TOKEN, addBookRequestBody);
         BookResponse bookResponse = response.as(BookResponse.class);
 
         assertAll(
@@ -42,7 +87,7 @@ public class BookTest extends BookLibraryApiTest {
 
     @Test
     void testGetBooks() {
-        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters();
+        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters(VALID_TOKEN);
 
         List<BookResponse> booksResponse = BookApi.getBooks().jsonPath().getList("", BookResponse.class);
 
