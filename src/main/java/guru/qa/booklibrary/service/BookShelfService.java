@@ -14,7 +14,12 @@ public class BookShelfService {
         this.bookShelfRepository = bookShelfRepository;
     }
 
-    public BookShelfEntity addBookToBookShelf(BookShelfEntity bookShelfEntity){
+    public BookShelfEntity addBookToBookShelf(UUID bookId){
+        BookShelfEntity bookShelfEntity = new BookShelfEntity(
+                UUID.randomUUID(),
+                bookId,
+                null
+        );
         return bookShelfRepository.addToBookShelf(bookShelfEntity);
     }
     public List<BookShelfEntity> getBookShelfState(){
