@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @Profile("dev")
@@ -18,6 +19,13 @@ public class InMemoryBookRepository implements BookRepository {
     public BookEntity addBook(BookEntity bookEntity){
         books.add(bookEntity);
         return bookEntity;
+    }
+
+    @Override
+    public BookEntity getBookById(UUID id) {
+        return books.stream()
+                .filter(bookEntity -> bookEntity.getId().equals(id))
+                .findFirst().orElse(null);
     }
 
     @Override

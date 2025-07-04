@@ -3,6 +3,8 @@ package guru.qa.booklibrary.controller;
 import guru.qa.booklibrary.exception.UserNotAuthorizedException;
 import guru.qa.booklibrary.model.dto.bookShelf.AddBookToBookShelfRequest;
 import guru.qa.booklibrary.model.dto.bookShelf.BookShelfResponse;
+import guru.qa.booklibrary.model.dto.bookShelf.RentABookRequest;
+import guru.qa.booklibrary.model.entity.users.UserEntity;
 import guru.qa.booklibrary.model.mapper.BookShelfMapper;
 import guru.qa.booklibrary.service.BookShelfService;
 import guru.qa.booklibrary.service.UserAuthorizationService;
@@ -43,6 +45,20 @@ public class BookShelfController {
         } else {
             throw new UserNotAuthorizedException();
         }
+    }
+
+    @PostMapping("/rent")
+    @Operation(summary = "Rent a book")
+    public BookShelfResponse rentABook(
+            @Parameter(required = true) @RequestHeader(value = "Authorization", required = false) String authHeader,
+            @RequestBody RentABookRequest rentABookRequestBody){
+        UserEntity user = userAuthorizationService.getUserByBearerTokenHeader(authHeader);
+        if (!isNull(user)){
+            return bookShelfMapper.toResponse(bookShelfService.rentABook(user.getId(), rentABookRequestBody.getBookId()));
+        } else {
+            throw new UserNotAuthorizedException();
+        }
+
     }
 
     @GetMapping()
