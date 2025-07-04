@@ -37,6 +37,27 @@ public class BookShelfTest extends BookLibraryApiTest {
     }
 
     @Test
+    void testAddingBookToBookShelfWithInvalidTokenUser() {
+        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters(VALID_TOKEN);
+
+        Response response = BookShelfApi.addBookToBookShelf(
+                "random_token",
+                AddBookToBookShelfRequest.builder()
+                        .bookId(bookResponse.getId())
+                        .build()
+        );
+
+        ErrorModel errorResponse = response.as(ErrorModel.class);
+
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_UNAUTHORIZED),
+                () -> assertThat(errorResponse).isNotNull(),
+                () -> assertThat(errorResponse.getStatus()).isEqualTo(401),
+                () -> assertThat(errorResponse.getError()).isEqualTo("Unauthorized")
+        );
+    }
+
+    @Test
     void testAddingBookToBookShelfWithAuthorizedUser() {
         BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters(VALID_TOKEN);
 

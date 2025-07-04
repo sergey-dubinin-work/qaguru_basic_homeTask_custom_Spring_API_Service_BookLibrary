@@ -35,6 +35,24 @@ public class AuthorTest extends BookLibraryApiTest {
     }
 
     @Test
+    void testAuthorCreationWithInvalidTokenUser() {
+        AddAuthorRequest addAuthorRequest = AddAuthorRequest.builder()
+                .authorName(faker.name().fullName())
+                .build();
+
+        Response response = AuthorApi.addAuthor("random_token", addAuthorRequest);
+        ErrorModel errorResponse = response.as(ErrorModel.class);
+
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_UNAUTHORIZED),
+                () -> assertThat(errorResponse).isNotNull(),
+                () -> assertThat(errorResponse.getStatus()).isEqualTo(401),
+                () -> assertThat(errorResponse.getError()).isEqualTo("Unauthorized")
+        );
+
+    }
+
+    @Test
     void testAuthorCreationWithAuthorizedUser() {
         AddAuthorRequest addAuthorRequest = AddAuthorRequest.builder()
                 .authorName(faker.name().fullName())
