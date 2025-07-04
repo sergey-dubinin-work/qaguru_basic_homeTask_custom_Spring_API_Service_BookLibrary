@@ -2,44 +2,19 @@ package guru.qa.booklibrary.tests;
 
 import guru.qa.booklibrary.BookLibraryApiTest;
 import guru.qa.booklibrary.api.BookShelfApi;
-import guru.qa.booklibrary.api.UserApi;
 import guru.qa.booklibrary.dataGenerators.DataGeneratorBook;
-import guru.qa.booklibrary.dataGenerators.DataGeneratorUser;
 import guru.qa.booklibrary.model.dto.bookShelf.AddBookToBookShelfRequest;
 import guru.qa.booklibrary.model.dto.bookShelf.BookShelfResponse;
 import guru.qa.booklibrary.model.dto.books.BookResponse;
-import guru.qa.booklibrary.model.dto.users.UserAuthRequest;
-import guru.qa.booklibrary.model.dto.users.UserAuthResponse;
-import guru.qa.booklibrary.model.dto.users.UserInfoResponse;
-import guru.qa.booklibrary.model.dto.users.UserRegistrationRequest;
 import guru.qa.booklibrary.models.ErrorModel;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class BookShelfTest extends BookLibraryApiTest {
-
-    private static String VALID_TOKEN;
-
-    @BeforeAll
-    static void beforeAll() {
-        UserRegistrationRequest userRegistrationRequest = DataGeneratorUser.getUserRegistrationRequestWithOnlyRequiredParameters();
-
-        UserApi.registerUser(userRegistrationRequest).as(UserInfoResponse.class);
-
-        UserAuthResponse userAuthResponse = UserApi.getToken(
-                new UserAuthRequest(
-                        userRegistrationRequest.getUserName(),
-                        userRegistrationRequest.getPassword()
-                )
-        ).as(UserAuthResponse.class);
-
-        VALID_TOKEN = userAuthResponse.getToken() ;
-    }
 
     @Test
     void testAddingBookToBookShelfWithUnauthorizedUser() {
