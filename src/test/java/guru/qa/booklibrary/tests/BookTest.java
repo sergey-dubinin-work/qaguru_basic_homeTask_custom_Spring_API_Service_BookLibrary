@@ -22,7 +22,7 @@ public class BookTest extends BookLibraryApiTest {
     @Test
     void testBookCreationWithUnauthorizedUser() {
 
-        AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters();
+        AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters(VALID_TOKEN);
 
         AddBookRequest addBookRequestBody = AddBookRequest.builder()
                 .authorId(authorResponse.getId())
@@ -44,7 +44,7 @@ public class BookTest extends BookLibraryApiTest {
     @Test
     void testBookCreationWithInvalidTokenUser() {
 
-        AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters();
+        AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters(VALID_TOKEN);
 
         AddBookRequest addBookRequestBody = AddBookRequest.builder()
                 .authorId(authorResponse.getId())
@@ -66,7 +66,7 @@ public class BookTest extends BookLibraryApiTest {
     @Test
     void testBookCreationWithAuthorizedUser() {
 
-        AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters();
+        AuthorResponse authorResponse = DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters(VALID_TOKEN);
 
         AddBookRequest addBookRequestBody = AddBookRequest.builder()
                 .authorId(authorResponse.getId())

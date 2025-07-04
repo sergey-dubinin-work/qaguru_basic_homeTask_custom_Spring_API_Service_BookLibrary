@@ -12,8 +12,8 @@ public class DataGeneratorAuthor extends DataGeneratorBase{
                 .build();
     }
 
-    public static AuthorResponse createAuthorWithOnlyRequiredParameters(){
-        return AuthorApi.addAuthor(getAuthorRequestWithOnlyRequiredParameters())
+    public static AuthorResponse createAuthorWithOnlyRequiredParameters(String token){
+        return AuthorApi.addAuthor(token, getAuthorRequestWithOnlyRequiredParameters())
                 .as(AuthorResponse.class);
 
     }

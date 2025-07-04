@@ -6,14 +6,14 @@ import guru.qa.booklibrary.model.dto.books.BookResponse;
 
 public class DataGeneratorBook extends DataGeneratorBase{
 
-    public static AddBookRequest getBookRequestWithOnlyRequiredParameters(){
+    public static AddBookRequest getBookRequestWithOnlyRequiredParameters(String token){
         return AddBookRequest.builder()
-                .authorId(DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters().getId())
+                .authorId(DataGeneratorAuthor.createAuthorWithOnlyRequiredParameters(token).getId())
                 .bookName(faker.starWars().wookieWords())
                 .build();
     }
 
     public static BookResponse createBookWithOnlyRequiredParameters(String token){
-        return BookApi.addBook(token, getBookRequestWithOnlyRequiredParameters()).as(BookResponse.class);
+        return BookApi.addBook(token, getBookRequestWithOnlyRequiredParameters(token)).as(BookResponse.class);
     }
 }

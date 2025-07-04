@@ -139,7 +139,7 @@ public class BookShelfTest extends BookLibraryApiTest {
         BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters(userAuthResponse.getToken());
 
         BookShelfResponse bookShelfResponseBody = BookShelfApi.addBookToBookShelf(
-                VALID_TOKEN,
+                userAuthResponse.getToken(),
                 AddBookToBookShelfRequest.builder()
                         .bookId(bookResponse.getId())
                         .build()
