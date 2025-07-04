@@ -8,6 +8,7 @@ import guru.qa.booklibrary.dataGenerators.DataGeneratorUser;
 import guru.qa.booklibrary.model.dto.bookShelf.AddBookToBookShelfRequest;
 import guru.qa.booklibrary.model.dto.bookShelf.BookShelfResponse;
 import guru.qa.booklibrary.model.dto.bookShelf.RentABookRequest;
+import guru.qa.booklibrary.model.dto.bookShelf.ReturnABookRequest;
 import guru.qa.booklibrary.model.dto.books.BookResponse;
 import guru.qa.booklibrary.model.dto.users.UserAuthRequest;
 import guru.qa.booklibrary.model.dto.users.UserAuthResponse;
@@ -226,6 +227,140 @@ public class BookShelfTest extends BookLibraryApiTest {
                 () -> assertThat(booksOnShelf).isNotEmpty(),
                 () -> assertThat(bookOnShelfFromList).usingRecursiveComparison().isEqualTo(bookShelfResponseBody)
         );
+    }
+
+    @Test
+    void testReturningBookToBookShelfWithUnauthorizedUser() {
+        ReturnABookRequest returnABookRequest = ReturnABookRequest.builder()
+                .bookId(UUID.randomUUID())
+                .build();
+
+        Response response = BookShelfApi.returnABook(returnABookRequest);
+
+        ErrorModel errorResponse = response.as(ErrorModel.class);
+
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_UNAUTHORIZED),
+                () -> assertThat(errorResponse).isNotNull(),
+                () -> assertThat(errorResponse.getStatus()).isEqualTo(401),
+                () -> assertThat(errorResponse.getError()).isEqualTo("Unauthorized")
+        );
+    }
+
+    @Test
+    void testReturningNotExistingBookToBookShelf() {
+        ReturnABookRequest returnABookRequest = ReturnABookRequest.builder()
+                .bookId(UUID.randomUUID())
+                .build();
+
+        Response response = BookShelfApi.returnABook(VALID_TOKEN, returnABookRequest);
+
+        ErrorModel errorResponse = response.as(ErrorModel.class);
+
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_NOT_FOUND),
+                () -> assertThat(errorResponse).isNotNull(),
+                () -> assertThat(errorResponse.getStatus()).isEqualTo(404),
+                () -> assertThat(errorResponse.getError()).isEqualTo("Not Found")
+        );
+    }
+
+    @Test
+    void testReturningBookToBookShelfWithAuthorizedUser() {
+        UserRegistrationRequest userRegistrationRequest = DataGeneratorUser.getUserRegistrationRequestWithOnlyRequiredParameters();
+
+        UserApi.registerUser(userRegistrationRequest).as(UserInfoResponse.class);
+
+        UserAuthResponse userAuthResponse = UserApi.getToken(new UserAuthRequest(
+                userRegistrationRequest.getUserName(),
+                userRegistrationRequest.getPassword()
+        )).as(UserAuthResponse.class);
+
+        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters(userAuthResponse.getToken());
+
+        BookShelfResponse bookShelfResponseBody = BookShelfApi.addBookToBookShelf(
+                userAuthResponse.getToken(),
+                AddBookToBookShelfRequest.builder()
+                        .bookId(bookResponse.getId())
+                        .build()
+        ).as(BookShelfResponse.class);
+
+        BookShelfApi.rentABook(
+                userAuthResponse.getToken(),
+                RentABookRequest.builder()
+                        .bookId(bookResponse.getId())
+                        .build()
+        );
+
+        Response responseReturn = BookShelfApi.returnABook(
+                userAuthResponse.getToken(),
+                ReturnABookRequest.builder()
+                        .bookId(bookResponse.getId())
+                        .build()
+        );
+
+        BookShelfResponse bookShelfResponseBodyAfterReturning = responseReturn.as(BookShelfResponse.class);
+
+        assertAll(
+                () -> assertThat(responseReturn.statusCode()).isEqualTo(HttpStatus.SC_OK),
+                () -> assertThat(bookShelfResponseBodyAfterReturning).isNotNull(),
+                () -> assertThat(bookShelfResponseBodyAfterReturning.getId()).isEqualTo(bookShelfResponseBody.getId()),
+                () -> assertThat(bookShelfResponseBodyAfterReturning.getBookId()).isEqualTo(bookShelfResponseBody.getBookId()),
+                () -> assertThat(bookShelfResponseBodyAfterReturning.getRentedByUserId()).isNull()
+        );
+
+    }
+
+    @Test
+    void testImpossibleToReturnAlreadyReturnedBookToBookShelfWithAuthorizedUser() {
+        UserRegistrationRequest userRegistrationRequest = DataGeneratorUser.getUserRegistrationRequestWithOnlyRequiredParameters();
+
+        UserApi.registerUser(userRegistrationRequest).as(UserInfoResponse.class);
+
+        UserAuthResponse userAuthResponse = UserApi.getToken(new UserAuthRequest(
+                userRegistrationRequest.getUserName(),
+                userRegistrationRequest.getPassword()
+        )).as(UserAuthResponse.class);
+
+        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters(userAuthResponse.getToken());
+
+        BookShelfResponse bookShelfResponseBody = BookShelfApi.addBookToBookShelf(
+                userAuthResponse.getToken(),
+                AddBookToBookShelfRequest.builder()
+                        .bookId(bookResponse.getId())
+                        .build()
+        ).as(BookShelfResponse.class);
+
+        BookShelfApi.rentABook(
+                userAuthResponse.getToken(),
+                RentABookRequest.builder()
+                        .bookId(bookResponse.getId())
+                        .build()
+        );
+
+        BookShelfApi.returnABook(
+                userAuthResponse.getToken(),
+                ReturnABookRequest.builder()
+                        .bookId(bookResponse.getId())
+                        .build()
+        );
+
+        Response responseSecondReturn = BookShelfApi.returnABook(
+                userAuthResponse.getToken(),
+                ReturnABookRequest.builder()
+                        .bookId(bookResponse.getId())
+                        .build()
+        );
+
+        ErrorModel bookShelfResponseBodyAfterReturning = responseSecondReturn.as(ErrorModel.class);
+
+        assertAll(
+                () -> assertThat(responseSecondReturn.statusCode()).isEqualTo(HttpStatus.SC_NOT_FOUND),
+                () -> assertThat(bookShelfResponseBodyAfterReturning).isNotNull(),
+                () -> assertThat(bookShelfResponseBodyAfterReturning.getStatus()).isEqualTo(404),
+                () -> assertThat(bookShelfResponseBodyAfterReturning.getError()).isEqualTo("Not Found")
+        );
+
     }
 
 }

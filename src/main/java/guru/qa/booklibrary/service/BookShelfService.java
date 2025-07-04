@@ -48,6 +48,20 @@ public class BookShelfService {
         return bookShelfRepository.setRenterToBookShelfEntity(shelfEntityToRent.getId(), userId);
     }
 
+    public BookShelfEntity returnABook(UUID userId, UUID bookId) {
+        if (isNull(bookRepository.getBookById(bookId))){
+            throw new NotFoundException();
+        }
+
+        BookShelfEntity shelfEntityToReturn = bookShelfRepository.getBookRentedByUser(bookId, userId);
+
+        if (isNull(shelfEntityToReturn)){
+            throw new NotFoundException();
+        }
+
+        return bookShelfRepository.setRenterToBookShelfEntity(shelfEntityToReturn.getId(), null);
+    }
+
     public List<BookShelfEntity> getBookShelfState() {
         return bookShelfRepository.getBookShelfState();
     }

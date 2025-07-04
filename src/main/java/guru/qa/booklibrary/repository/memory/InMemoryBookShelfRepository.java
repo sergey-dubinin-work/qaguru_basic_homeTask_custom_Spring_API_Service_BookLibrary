@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static java.util.Objects.isNull;
@@ -25,10 +26,12 @@ public class InMemoryBookShelfRepository implements BookShelfRepository {
 
     @Override
     public BookShelfEntity getFirstFreeBook(UUID bookId) {
-        return new ArrayList<>(bookShelf).stream()
-                .filter(bookShelfEntity -> bookShelfEntity.getBookId().equals(bookId))
-                .filter(bookShelfEntity -> isNull(bookShelfEntity.getRentedByUserId()))
-                .findFirst().orElse(null);
+        return getBookWithUserFromBookShelf(bookId, null);
+    }
+
+    @Override
+    public BookShelfEntity getBookRentedByUser(UUID bookId, UUID userId) {
+        return getBookWithUserFromBookShelf(bookId, userId);
     }
 
     @Override
@@ -43,6 +46,13 @@ public class InMemoryBookShelfRepository implements BookShelfRepository {
     @Override
     public List<BookShelfEntity> getBookShelfState() {
         return new ArrayList<>(bookShelf);
+    }
+
+    private BookShelfEntity getBookWithUserFromBookShelf(UUID bookId, UUID userId){
+        return new ArrayList<>(bookShelf).stream()
+                .filter(bookShelfEntity -> bookId.equals(bookShelfEntity.getBookId()))
+                .filter(bookShelfEntity -> Objects.equals(userId, bookShelfEntity.getRentedByUserId()))
+                .findFirst().orElse(null);
     }
 
 }

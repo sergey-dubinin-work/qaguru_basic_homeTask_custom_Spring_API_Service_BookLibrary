@@ -11,6 +11,8 @@ public interface BookShelfRepository {
 
     BookShelfEntity getFirstFreeBook(UUID bookId);
 
+    BookShelfEntity getBookRentedByUser(UUID bookId, UUID userId);
+
     BookShelfEntity setRenterToBookShelfEntity(UUID recordId, UUID userId);
 
     List<BookShelfEntity> getBookShelfState();
