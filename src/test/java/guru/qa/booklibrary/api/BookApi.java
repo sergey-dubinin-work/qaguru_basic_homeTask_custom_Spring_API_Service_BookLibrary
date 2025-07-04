@@ -9,10 +9,10 @@ import static io.restassured.RestAssured.given;
 public class BookApi {
     private static final String BOOK = "/book";
 
-    public static Response addBook(AddBookRequest addBookRequest){
+    public static Response addBook(AddBookRequest addBookRequestBody){
         return given()
                 .contentType(ContentType.JSON)
-                .body(addBookRequest)
+                .body(addBookRequestBody)
                 .when()
                 .post(BOOK)
                 .then()

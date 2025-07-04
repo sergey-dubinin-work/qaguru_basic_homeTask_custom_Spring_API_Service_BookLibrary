@@ -12,7 +12,7 @@ public class BookShelfApi {
 
     private static final String ADD_TO_BOOK_SHELF = "/bookshelf/addToBookShelf";
 
-    private static Response sendAddBookToBookShelfRequest(String token, AddBookToBookShelfRequest addBookToBookShelfRequest){
+    private static Response sendAddBookToBookShelfRequest(String token, AddBookToBookShelfRequest addBookToBookShelfRequestBody){
         RequestSpecification spec = given();
 
         if (!isNull(token)){
@@ -22,19 +22,19 @@ public class BookShelfApi {
 
         return spec
                 .contentType(ContentType.JSON)
-                .body(addBookToBookShelfRequest)
+                .body(addBookToBookShelfRequestBody)
                 .when()
                 .post(ADD_TO_BOOK_SHELF)
                 .then()
                 .extract().response();
     }
 
-    public static Response addBookToBookShelf(AddBookToBookShelfRequest addBookToBookShelfRequest){
-        return sendAddBookToBookShelfRequest(null, addBookToBookShelfRequest);
+    public static Response addBookToBookShelf(AddBookToBookShelfRequest addBookToBookShelfRequestBody){
+        return sendAddBookToBookShelfRequest(null, addBookToBookShelfRequestBody);
     }
 
-    public static Response addBookToBookShelf(String token, AddBookToBookShelfRequest addBookToBookShelfRequest){
-        return sendAddBookToBookShelfRequest(token, addBookToBookShelfRequest);
+    public static Response addBookToBookShelf(String token, AddBookToBookShelfRequest addBookToBookShelfRequestBody){
+        return sendAddBookToBookShelfRequest(token, addBookToBookShelfRequestBody);
     }
 
 }

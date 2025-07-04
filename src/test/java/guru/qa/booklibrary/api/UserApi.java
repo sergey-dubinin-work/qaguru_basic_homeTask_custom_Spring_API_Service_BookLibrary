@@ -13,11 +13,11 @@ public class UserApi {
     private static final String USER_GET_TOKEN = "/user/getToken";
     private static final String USER_USER_INFO = "/user/userInfo";
 
-    public static Response registerUser(UserRegistrationRequest userRegistrationRequest){
+    public static Response registerUser(UserRegistrationRequest userRegistrationRequestBody){
 
         return given()
                 .contentType(ContentType.JSON)
-                .body(userRegistrationRequest)
+                .body(userRegistrationRequestBody)
                 .when()
                 .post(USER_REGISTER)
                 .then()
@@ -25,11 +25,11 @@ public class UserApi {
 
     }
 
-    public static Response getToken(UserAuthRequest userAuthRequest){
+    public static Response getToken(UserAuthRequest userAuthRequestBody){
 
         return given()
                 .contentType(ContentType.JSON)
-                .body(userAuthRequest)
+                .body(userAuthRequestBody)
                 .when()
                 .post(USER_GET_TOKEN)
                 .then()

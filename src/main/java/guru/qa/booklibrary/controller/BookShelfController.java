@@ -31,8 +31,7 @@ public class BookShelfController {
     @PostMapping("/addToBookShelf")
     @Operation(summary = "Adding new book to book shelf")
     public BookShelfResponse addToBookShelf(
-            @Parameter(required = true)
-            @RequestHeader(value = "Authorization", required = false) String authHeader,
+            @Parameter(required = true) @RequestHeader(value = "Authorization", required = false) String authHeader,
             @RequestBody AddBookToBookShelfRequest addBookToBookShelfRequest){
 
         if (!isNull(userAuthorizationService.getUserByBearerTokenHeader(authHeader))) {
