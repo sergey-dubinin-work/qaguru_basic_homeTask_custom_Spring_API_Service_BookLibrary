@@ -54,8 +54,6 @@ public class BookShelfController {
             @Parameter(required = true) @RequestHeader(value = "Authorization", required = false) String authHeader,
             @RequestBody RentABookRequest rentABookRequestBody) {
         UserEntity user = userAuthorizationService.getUserByBearerTokenHeader(authHeader);
-        if (!isNull(user)){
-            return bookShelfMapper.toResponse(bookShelfService.rentABook(user.getId(), rentABookRequestBody.getBookId()));
         if (!isNull(user)) {
             return bookShelfMapper.toResponse(
                     bookShelfService.rentABook(user.getId(), rentABookRequestBody.getBookId())

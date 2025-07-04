@@ -44,7 +44,6 @@ public class BookShelfService {
             throw new NoAvailableBookException();
         }
 
-        return bookShelfRepository.setRenterToBookShelfEntity(bookToRent.getId(), userId);
         return bookShelfRepository.setRenterToBookShelfEntity(shelfEntityToRent.getId(), userId);
     }
 
