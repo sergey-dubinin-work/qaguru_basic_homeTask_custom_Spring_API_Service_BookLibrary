@@ -10,7 +10,8 @@ import static java.util.Objects.isNull;
 
 public class BookShelfApi {
 
-    private static final String ADD_TO_BOOK_SHELF = "/bookshelf/addToBookShelf";
+    private static final String BOOKSHELF           = "/bookshelf";
+    private static final String ADD_TO_BOOK_SHELF   = "/bookshelf/addToBookShelf";
 
     private static Response sendAddBookToBookShelfRequest(String token, AddBookToBookShelfRequest addBookToBookShelfRequestBody){
         RequestSpecification spec = given();
@@ -37,4 +38,11 @@ public class BookShelfApi {
         return sendAddBookToBookShelfRequest(token, addBookToBookShelfRequestBody);
     }
 
+    public static Response getBookShelf(){
+        return given()
+                .when()
+                .get(BOOKSHELF)
+                .then()
+                .extract().response();
+    }
 }

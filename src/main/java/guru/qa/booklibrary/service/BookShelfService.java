@@ -4,6 +4,7 @@ import guru.qa.booklibrary.model.entity.bookShelf.BookShelfEntity;
 import guru.qa.booklibrary.repository.BookShelfRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 @Service
 public class BookShelfService {
 
@@ -16,4 +17,8 @@ public class BookShelfService {
     public BookShelfEntity addBookToBookShelf(BookShelfEntity bookShelfEntity){
         return bookShelfRepository.addToBookShelf(bookShelfEntity);
     }
+    public List<BookShelfEntity> getBookShelfState(){
+        return bookShelfRepository.getBookShelfState();
+    }
+
 }

@@ -19,5 +19,9 @@ public class InMemoryBookShelfRepository implements BookShelfRepository {
         bookShelf.add(bookShelfEntity);
         return bookShelfEntity;
     }
+    @Override
+    public List<BookShelfEntity> getBookShelfState() {
+        return new ArrayList<>(bookShelf);
+    }
 
 }

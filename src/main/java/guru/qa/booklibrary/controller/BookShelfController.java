@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static java.util.Objects.isNull;
 
 @RestController
@@ -41,6 +43,14 @@ public class BookShelfController {
         } else{
             throw new UserNotAuthorizedException();
         }
+    }
+
+    @GetMapping()
+    @Operation(summary = "Get bookshelf state")
+    public List<BookShelfResponse> getBookShelfState(){
+        return bookShelfService.getBookShelfState().stream()
+                .map(bookShelfMapper::toResponse)
+                .toList();
     }
 
 }

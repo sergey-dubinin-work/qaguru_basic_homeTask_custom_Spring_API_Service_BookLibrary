@@ -11,6 +11,8 @@ import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -76,6 +78,32 @@ public class BookShelfTest extends BookLibraryApiTest {
                 () -> assertThat(bookShelfResponse.getId()).isNotNull(),
                 () -> assertThat(bookShelfResponse.getBookId()).isEqualTo(bookResponse.getId()),
                 () -> assertThat(bookShelfResponse.getRentedByUserId()).isNull()
+        );
+    }
+
+    @Test
+    void testGetBookShelfState() {
+        BookResponse bookResponse = DataGeneratorBook.createBookWithOnlyRequiredParameters(VALID_TOKEN);
+
+        BookShelfResponse bookShelfResponseBody = BookShelfApi.addBookToBookShelf(
+                VALID_TOKEN,
+                AddBookToBookShelfRequest.builder()
+                        .bookId(bookResponse.getId())
+                        .build()
+        ).as(BookShelfResponse.class);
+
+        Response response = BookShelfApi.getBookShelf();
+
+        List<BookShelfResponse> booksOnShelf = response.jsonPath().getList("", BookShelfResponse.class);
+
+        BookShelfResponse bookOnShelfFromList = booksOnShelf.stream()
+                        .filter(bookShelfResponse -> bookShelfResponse.getId().equals(bookShelfResponseBody.getId()))
+                                .findFirst().orElse(null);
+
+        assertAll(
+                () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_OK),
+                () -> assertThat(booksOnShelf).isNotEmpty(),
+                () -> assertThat(bookOnShelfFromList).usingRecursiveComparison().isEqualTo(bookShelfResponseBody)
         );
     }
 }
