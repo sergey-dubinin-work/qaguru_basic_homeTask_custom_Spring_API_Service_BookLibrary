@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @Profile("dev")
@@ -19,6 +20,14 @@ public class InMemoryAuthorRepository implements AuthorRepository {
         authors.add(addAuthorEntity);
         return addAuthorEntity;
 
+    }
+
+    @Override
+    public AuthorEntity getAuthorById(UUID id) {
+        return new ArrayList<>(authors).stream()
+                .filter(authorEntity -> authorEntity.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
