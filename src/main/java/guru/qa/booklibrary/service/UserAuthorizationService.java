@@ -44,7 +44,12 @@ public class UserAuthorizationService {
         if (authHeader != null && authHeader.startsWith("Bearer ")){
             String token = authHeader.substring(7);
             UserTokenEntity userTokenEntity = userTokenRepository.findByToken(token);
-            return userRepository.getUserByUserId(userTokenEntity.getUserId());
+            if (!isNull(userTokenEntity)){
+                return userRepository.getUserByUserId(userTokenEntity.getUserId());
+            } else {
+                throw new UserNotAuthorizedException();
+            }
+
         } else {
             throw new UserNotAuthorizedException();
         }

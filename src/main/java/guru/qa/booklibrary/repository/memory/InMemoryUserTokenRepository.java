@@ -25,7 +25,7 @@ public class InMemoryUserTokenRepository implements UserTokenRepository {
     public UserTokenEntity findByToken(String userToken) {
             return tokens.stream()
                     .filter(userTokenEntity -> userTokenEntity.getToken().equals(userToken))
-                    .findFirst().orElseThrow(UserNotAuthorizedException::new);
+                    .findFirst().orElse(null);
     }
 
 }
